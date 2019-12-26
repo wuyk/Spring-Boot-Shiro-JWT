@@ -1,0 +1,22 @@
+spring:
+  # 环境 dev|test|prod
+  profiles:
+    active: dev
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+    servlet:
+      multipart:
+        max-file-size: 5000MB
+        max-request-size: 5000MB
+        enabled: true
+server:
+  tomcat:
+    remote-ip-header: x-forward-for
+    uri-encoding: UTF-8
+    max-threads: 1000
+    min-spare-threads: 30
+    background-processor-delay: 30s
+  port: 8088
+  servlet:
+    context-path: /
