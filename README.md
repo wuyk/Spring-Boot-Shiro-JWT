@@ -111,12 +111,10 @@ public class UnauthorizedException extends RuntimeException {
 | URL                 | 作用                      |
 | ------------------- | ----------------------- |
 | /login              | 登入                      |
-| /users            | 所有人都可以访问，但是用户与游客看到的内容不同 |
+| /users              | 所有人都可以访问，但是用户与游客看到的内容不同 |
 | /require_auth       | 登入的用户才可以进行访问            |
 | /require_role       | admin的角色用户才可以登入         |
 | /require_permission | 拥有view和edit权限的用户才可以访问   |
-
-**Controller**
 
 **处理框架异常**
 

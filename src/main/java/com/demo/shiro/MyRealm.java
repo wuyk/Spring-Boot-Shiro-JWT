@@ -15,6 +15,10 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 @Slf4j
 @Component
 public class MyRealm extends AuthorizingRealm {
@@ -49,7 +53,7 @@ public class MyRealm extends AuthorizingRealm {
         if (user == null) {
             throw new AuthenticationException("用户不存在!");
         }
-        if (! JWTUtil.verify(token, username, user.getPassword())) {
+        if (!JWTUtil.verify(token, username, user.getPassword())) {
             throw new AuthenticationException("用户账户或密码错误");
         }
         return new SimpleAuthenticationInfo(token, token, "my_realm");
@@ -63,9 +67,9 @@ public class MyRealm extends AuthorizingRealm {
         String username = JWTUtil.getUsername(principals.toString());
         User user = userService.queryByUsername(username);
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-        //simpleAuthorizationInfo.addRole(user.getRole());
-        //Set<String> permission = new HashSet<>(Arrays.asList(user.getPermission().split(",")));
-        //simpleAuthorizationInfo.addStringPermissions(permission);
+        simpleAuthorizationInfo.addRole(user.getRole());
+        Set<String> permission = new HashSet<>(Arrays.asList(user.getPermission().split(",")));
+        simpleAuthorizationInfo.addStringPermissions(permission);
         return simpleAuthorizationInfo;
     }
 

@@ -5,10 +5,11 @@ spring:
     name: druidDataSource
     druid:
       username: root
-      password: xxxx
-      url: jdbc:mysql://120.24.236.70:3306/liulu?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+      password: root
+      url: jdbc:mysql://127.0.0.1:3306/liulu?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
       # 数据源的其他配置
-      initialSize: 5  #数据库连接池初始化大小
+      # 数据库连接池初始化大小
+      initialSize: 5
       minIdle: 5
       maxActive: 20
       maxWait: 60000
