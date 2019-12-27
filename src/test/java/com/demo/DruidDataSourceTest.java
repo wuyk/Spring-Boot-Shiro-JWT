@@ -16,7 +16,7 @@ import java.sql.SQLException;
  * Created by WUYK on 2019-12-26.
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {WebApplication.class})
+@SpringBootTest(classes = {Application.class})
 public class DruidDataSourceTest {
 
     @Autowired
