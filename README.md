@@ -2,6 +2,81 @@
 
 本项目是基于SpringBoot+Shiro+JWT技术实现的脚手架，可用于快速搭建项目
 
+## 准备Maven文件
+
+新建一个 Maven 工程，添加相关的 dependencies。
+
+## 分环境打包（Maven动态选择环境）
+
+1. pom.xml中添加profiles模块：
+```xml
+ <profiles>
+    <profile>
+        <id>dev</id>
+        <activation>
+            <activeByDefault>true</activeByDefault>
+        </activation>
+        <properties>
+            <profileActive>dev</profileActive>
+        </properties>
+    </profile>
+    <profile>
+        <id>prod</id>
+        <properties>
+            <profileActive>pro</profileActive>
+        </properties>
+    </profile>
+ </profiles>
+```
+2. application.ymm文件中添加：
+```yml
+ spring:
+   profiles:
+     active: @profileActive@
+```
+
+3、 pom.xml文件中添加build模块：
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+        </plugin>
+    </plugins>
+    <resources>
+        <resource>
+            <directory>src/main/resources</directory>
+            <filtering>true</filtering>
+            <!-- 打包时过滤配置文件-->
+            <excludes>
+                <exclude>application*.yml</exclude>
+                <exclude>static/**</exclude>
+            </excludes>
+        </resource>
+        <resource>
+            <directory>src/main/resources</directory>
+            <filtering>true</filtering>
+            <!--根据profile中的变量profileActive指定对应的配置文件-->
+            <includes>
+                <include>application.yml</include>
+                <include>application-${profileActive}.yml</include>
+            </includes>
+        </resource>
+    </resources>
+ </build>
+```
+
+4、 Terminal控制台输入maven打包命令：
+- 选择dev环境（默认）：
+```text
+mvn clean package -DskipTest
+```
+- 选择prod环境：
+```text
+mvn clean package -DskipTest -Pprod
+```
+
 ## 程序逻辑
 
 1. 我们 POST 用户名与密码到 `/login` 进行登入，如果成功返回一个加密 token，失败的话直接返回 401 错误。
@@ -19,10 +94,6 @@
 1. 获得 `token` 中携带的 `username` 信息。
 2. 进入数据库搜索这个用户，得到他的密码。
 3. 使用用户的密码来检验 `token` 是否正确。
-
-## 准备Maven文件
-
-新建一个 Maven 工程，添加相关的 dependencies。
 
 ## 配置 JWT
 
