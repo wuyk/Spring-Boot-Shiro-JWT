@@ -1,4 +1,4 @@
-package com.demo.controller;
+package com.demo.advice;
 
 import com.demo.pojo.vo.ServerResponse;
 import com.demo.exception.UnauthorizedException;
@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * 全局处理 `Spring Boot` 的抛出异常。利用 `@RestControllerAdvice` 能很好的实现
+ * 利用@RestControllerAdvice全局处理 `Spring Boot` 的抛出异常。
  */
 @RestControllerAdvice
-public class ExceptionController {
+public class ExceptionAdvice {
 
     /**
      * 捕捉shiro的异常

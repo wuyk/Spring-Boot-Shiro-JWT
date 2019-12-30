@@ -189,7 +189,7 @@ public class UnauthorizedException extends RuntimeException {
 
 **处理框架异常**
 
-之前说过 restful 要统一返回的格式，所以我们也要全局处理 `Spring Boot` 的抛出异常。利用 `@RestControllerAdvice` 能很好的实现。
+规范restful统一返回的格式，利用@RestControllerAdvice全局处理 `Spring Boot` 的抛出异常。
 
 ## 配置 Shiro
 
