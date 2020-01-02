@@ -32,7 +32,7 @@ public class WebController {
                                 @RequestParam("password") String password) {
         User user = userService.queryByUsername(username);
         if (user.getPassword().equals(password)) {
-            return ServerResponse.createBySuccess("登录成功", JWTUtil.sign(username, password));
+            return ServerResponse.createBySuccess("login success", JWTUtil.generateToken(user));
         } else {
             throw new UnauthorizedException();
         }
